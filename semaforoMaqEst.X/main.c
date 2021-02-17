@@ -8,6 +8,8 @@
 
 #include <xc.h>
 #include "config.h"
+#include "delay.h"
+#include "semaforo.h"
 
 void main(void) 
 {
