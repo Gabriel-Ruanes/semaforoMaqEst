@@ -7,7 +7,12 @@
 
 
 #include <xc.h>
+#include "config.h"
 
-void main(void) {
-    return;
+void main(void) 
+{
+    while ( 1 )
+    {
+    
+    }
 }
