@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "semaforo.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
+# 1 "semaforo.c" 2
 
 
 
@@ -2499,7 +2499,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
+# 9 "semaforo.c" 2
 
 # 1 "./config.h" 1
 
@@ -2520,102 +2520,50 @@ extern __bank0 __bit __timeout;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 10 "main.c" 2
-
-# 1 "./delay.h" 1
-
-
-
-void delay ( unsigned int t );
-# 11 "main.c" 2
-
-# 1 "./semaforo.h" 1
-
-
-
-void semaforo_init ( void );
-void vermelho ( int x );
-void amarelo ( int x );
-void verde ( int x );
-int btPedestre ( void );
-void verde_ped ( int x );
-void vermelho_ped ( int x );
-# 12 "main.c" 2
-
-
-void main(void)
+# 10 "semaforo.c" 2
+# 21 "semaforo.c"
+void semaforo_init ( void )
 {
-    int estado = 0;
-    int t;
+    TRISDbits.TRISD7 = 0;
+    TRISDbits.TRISD6 = 0;
+    TRISDbits.TRISD5 = 0;
+    TRISDbits.TRISD1 = 1;
+    TRISDbits.TRISD2 = 0;
+    TRISDbits.TRISD3 = 0;
+    PORTDbits.RD1 = 0;
+    PORTDbits.RD2 = 0;
+    PORTDbits.RD3 = 0;
+    PORTDbits.RD5 = 0;
+    PORTDbits.RD6 = 0;
+    PORTDbits.RD7 = 0;
+}
 
-    while ( 1 )
-    {
-        switch ( estado )
-        {
-            case 0:
-                    estado = 1;
-                    break;
+void vermelho ( int x )
+{
+    PORTDbits.RD7 = x;
+}
 
-            case 1:
-                    semaforo_init();
-                    estado = 2;
-                    break;
+void amarelo ( int x )
+{
+    PORTDbits.RD6 = x;
+}
 
-            case 2:
-                    vermelho(0);
-                    amarelo(0);
-                    verde (1);
-                    vermelho_ped(1);
-                    verde_ped(0);
-                    if ( btPedestre() == 1 )
-                        estado = 3;
-                    break;
+void verde ( int x )
+{
+    PORTDbits.RD5 = x;
+}
 
-            case 3:
-                    t = 3000;
-                    estado = 4;
-                    break;
+int btPedestre ( void )
+{
+    return (PORTDbits.RD1);
+}
 
-            case 4:
-                    --t;
-                    delay(1);
-                    if ( t <= 0 )
-                        estado = 5;
-                    if ( btPedestre() == 1 )
-                        estado = 3;
-                    break;
+void verde_ped ( int x )
+{
+    PORTDbits.RD2 = x;
+}
 
-            case 5:
-                    vermelho(0);
-                    amarelo(1);
-                    verde(0);
-                    vermelho_ped(0);
-                    verde_ped(1);
-                    t = 2000;
-                    estado = 6;
-                    break;
-
-            case 6:
-                    delay(1);
-                    --t;
-                    if ( t <= 0 )
-                        estado = 7;
-                    break;
-
-            case 7:
-                    vermelho(1);
-                    amarelo(0);
-                    verde(0);
-                    t = 5000;
-                    estado = 8;
-                    break;
-
-            case 8:
-                    delay(1);
-                    --t;
-                    if ( t <= 0 )
-                        estado = 2;
-                    break;
-        }
-    }
+void vermelho_ped ( int x )
+{
+    PORTDbits.RD3 = x;
 }

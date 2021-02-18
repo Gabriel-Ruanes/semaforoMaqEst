@@ -1,29 +1,8 @@
 Version 4.0 HI-TECH Software Intermediate Code
-[p mainexit ]
-"4 ./semaforo.h
-[; ;./semaforo.h: 4: void semaforo_init ( void );
-[v _semaforo_init `(v ~T0 @X0 0 ef ]
-"5
-[; ;./semaforo.h: 5: void vermelho ( int x );
-[v _vermelho `(v ~T0 @X0 0 ef1`i ]
-"6
-[; ;./semaforo.h: 6: void amarelo ( int x );
-[v _amarelo `(v ~T0 @X0 0 ef1`i ]
-"7
-[; ;./semaforo.h: 7: void verde ( int x );
-[v _verde `(v ~T0 @X0 0 ef1`i ]
-"10
-[; ;./semaforo.h: 10: void vermelho_ped ( int x );
-[v _vermelho_ped `(v ~T0 @X0 0 ef1`i ]
-"9
-[; ;./semaforo.h: 9: void verde_ped ( int x );
-[v _verde_ped `(v ~T0 @X0 0 ef1`i ]
-"8
-[; ;./semaforo.h: 8: int btPedestre ( void );
-[v _btPedestre `(i ~T0 @X0 0 ef ]
-"4 ./delay.h
-[; ;./delay.h: 4: void delay ( unsigned int t );
-[v _delay `(v ~T0 @X0 0 ef1`ui ]
+[v F1256 `(v ~T0 @X0 1 tf1`ul ]
+"92 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic.h
+[v __delay `JF1256 ~T0 @X0 0 e ]
+[p i __delay ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f887.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f887.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -282,230 +261,41 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x BOR4V = BOR40V ]
 "18
 [p x WRT = OFF ]
-[v $root$_main `(v ~T0 @X0 0 e ]
-"14 main.c
-[; ;main.c: 14: void main(void)
-[v _main `(v ~T0 @X0 1 ef ]
-"15
-[; ;main.c: 15: {
+"12 delay.c
+[; ;delay.c: 12: void delay ( unsigned int t )
+[v _delay `(v ~T0 @X0 1 ef1`ui ]
+"13
+[; ;delay.c: 13: {
 {
-[e :U _main ]
+[e :U _delay ]
+"12
+[; ;delay.c: 12: void delay ( unsigned int t )
+[v _t `ui ~T0 @X0 1 r1 ]
+"13
+[; ;delay.c: 13: {
 [f ]
-"16
-[; ;main.c: 16:     int estado = 0;
-[v _estado `i ~T0 @X0 1 a ]
-[e = _estado -> 0 `i ]
-"17
-[; ;main.c: 17:     int t;
-[v _t `i ~T0 @X0 1 a ]
-"19
-[; ;main.c: 19:     while ( 1 )
+"14
+[; ;delay.c: 14:     while ( t )
+[e $U 139  ]
 [e :U 140 ]
-"20
-[; ;main.c: 20:     {
+"15
+[; ;delay.c: 15:     {
 {
-"21
-[; ;main.c: 21:         switch ( estado )
-[e $U 143  ]
-"22
-[; ;main.c: 22:         {
-{
-"23
-[; ;main.c: 23:             case 0:
-[e :U 144 ]
-"24
-[; ;main.c: 24:                     estado = 1;
-[e = _estado -> 1 `i ]
-"25
-[; ;main.c: 25:                     break;
-[e $U 142  ]
-"27
-[; ;main.c: 27:             case 1:
-[e :U 145 ]
-"28
-[; ;main.c: 28:                     semaforo_init();
-[e ( _semaforo_init ..  ]
-"29
-[; ;main.c: 29:                     estado = 2;
-[e = _estado -> 2 `i ]
-"30
-[; ;main.c: 30:                     break;
-[e $U 142  ]
-"32
-[; ;main.c: 32:             case 2:
-[e :U 146 ]
-"33
-[; ;main.c: 33:                     vermelho(0);
-[e ( _vermelho (1 -> 0 `i ]
-"34
-[; ;main.c: 34:                     amarelo(0);
-[e ( _amarelo (1 -> 0 `i ]
-"35
-[; ;main.c: 35:                     verde (1);
-[e ( _verde (1 -> 1 `i ]
-"36
-[; ;main.c: 36:                     vermelho_ped(1);
-[e ( _vermelho_ped (1 -> 1 `i ]
-"37
-[; ;main.c: 37:                     verde_ped(0);
-[e ( _verde_ped (1 -> 0 `i ]
-"38
-[; ;main.c: 38:                     if ( btPedestre() == 1 )
-[e $ ! == ( _btPedestre ..  -> 1 `i 147  ]
-"39
-[; ;main.c: 39:                         estado = 3;
-[e = _estado -> 3 `i ]
-[e :U 147 ]
-"40
-[; ;main.c: 40:                     break;
-[e $U 142  ]
-"42
-[; ;main.c: 42:             case 3:
-[e :U 148 ]
-"43
-[; ;main.c: 43:                     t = 3000;
-[e = _t -> 3000 `i ]
-"44
-[; ;main.c: 44:                     estado = 4;
-[e = _estado -> 4 `i ]
-"45
-[; ;main.c: 45:                     break;
-[e $U 142  ]
-"47
-[; ;main.c: 47:             case 4:
-[e :U 149 ]
-"48
-[; ;main.c: 48:                     --t;
-[e =- _t -> 1 `i ]
-"49
-[; ;main.c: 49:                     delay(1);
-[e ( _delay (1 -> -> 1 `i `ui ]
-"50
-[; ;main.c: 50:                     if ( t <= 0 )
-[e $ ! <= _t -> 0 `i 150  ]
-"51
-[; ;main.c: 51:                         estado = 5;
-[e = _estado -> 5 `i ]
-[e :U 150 ]
-"52
-[; ;main.c: 52:                     if ( btPedestre() == 1 )
-[e $ ! == ( _btPedestre ..  -> 1 `i 151  ]
-"53
-[; ;main.c: 53:                         estado = 3;
-[e = _estado -> 3 `i ]
-[e :U 151 ]
-"54
-[; ;main.c: 54:                     break;
-[e $U 142  ]
-"56
-[; ;main.c: 56:             case 5:
-[e :U 152 ]
-"57
-[; ;main.c: 57:                     vermelho(0);
-[e ( _vermelho (1 -> 0 `i ]
-"58
-[; ;main.c: 58:                     amarelo(1);
-[e ( _amarelo (1 -> 1 `i ]
-"59
-[; ;main.c: 59:                     verde(0);
-[e ( _verde (1 -> 0 `i ]
-"60
-[; ;main.c: 60:                     vermelho_ped(0);
-[e ( _vermelho_ped (1 -> 0 `i ]
-"61
-[; ;main.c: 61:                     verde_ped(1);
-[e ( _verde_ped (1 -> 1 `i ]
-"62
-[; ;main.c: 62:                     t = 2000;
-[e = _t -> 2000 `i ]
-"63
-[; ;main.c: 63:                     estado = 6;
-[e = _estado -> 6 `i ]
-"64
-[; ;main.c: 64:                     break;
-[e $U 142  ]
-"66
-[; ;main.c: 66:             case 6:
-[e :U 153 ]
-"67
-[; ;main.c: 67:                     delay(1);
-[e ( _delay (1 -> -> 1 `i `ui ]
-"68
-[; ;main.c: 68:                     --t;
-[e =- _t -> 1 `i ]
-"69
-[; ;main.c: 69:                     if ( t <= 0 )
-[e $ ! <= _t -> 0 `i 154  ]
-"70
-[; ;main.c: 70:                         estado = 7;
-[e = _estado -> 7 `i ]
-[e :U 154 ]
-"71
-[; ;main.c: 71:                     break;
-[e $U 142  ]
-"73
-[; ;main.c: 73:             case 7:
-[e :U 155 ]
-"74
-[; ;main.c: 74:                     vermelho(1);
-[e ( _vermelho (1 -> 1 `i ]
-"75
-[; ;main.c: 75:                     amarelo(0);
-[e ( _amarelo (1 -> 0 `i ]
-"76
-[; ;main.c: 76:                     verde(0);
-[e ( _verde (1 -> 0 `i ]
-"77
-[; ;main.c: 77:                     t = 5000;
-[e = _t -> 5000 `i ]
-"78
-[; ;main.c: 78:                     estado = 8;
-[e = _estado -> 8 `i ]
-"79
-[; ;main.c: 79:                     break;
-[e $U 142  ]
-"81
-[; ;main.c: 81:             case 8:
-[e :U 156 ]
-"82
-[; ;main.c: 82:                     delay(1);
-[e ( _delay (1 -> -> 1 `i `ui ]
-"83
-[; ;main.c: 83:                     --t;
-[e =- _t -> 1 `i ]
-"84
-[; ;main.c: 84:                     if ( t <= 0 )
-[e $ ! <= _t -> 0 `i 157  ]
-"85
-[; ;main.c: 85:                         estado = 2;
-[e = _estado -> 2 `i ]
-[e :U 157 ]
-"86
-[; ;main.c: 86:                     break;
-[e $U 142  ]
-"87
-[; ;main.c: 87:         }
-}
-[e $U 142  ]
-[e :U 143 ]
-[e [\ _estado , $ -> 0 `i 144
- , $ -> 1 `i 145
- , $ -> 2 `i 146
- , $ -> 3 `i 148
- , $ -> 4 `i 149
- , $ -> 5 `i 152
- , $ -> 6 `i 153
- , $ -> 7 `i 155
- , $ -> 8 `i 156
- 142 ]
-[e :U 142 ]
-"88
-[; ;main.c: 88:     }
+"16
+[; ;delay.c: 16:         --t;
+[e =- _t -> -> 1 `i `ui ]
+"17
+[; ;delay.c: 17:         _delay((unsigned long)((1)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"18
+[; ;delay.c: 18:     }
 }
 [e :U 139 ]
-[e $U 140  ]
+"14
+[; ;delay.c: 14:     while ( t )
+[e $ != _t -> -> 0 `i `ui 140  ]
 [e :U 141 ]
-"89
-[; ;main.c: 89: }
+"19
+[; ;delay.c: 19: }
 [e :UE 138 ]
 }

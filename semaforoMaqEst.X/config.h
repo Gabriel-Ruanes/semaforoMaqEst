@@ -18,4 +18,5 @@
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
 #define _XTAL_FREQ 4000000
+
 #endif
